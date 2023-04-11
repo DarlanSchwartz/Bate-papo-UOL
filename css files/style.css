@@ -1,0 +1,292 @@
+*{
+    font-family: 'Roboto';
+}
+
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #F3F3F3;
+}
+
+.login-screen{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    display: none;
+}
+.login-logo{
+    width: 130px;
+    height: 92px;
+    margin-top: 72px;
+}
+
+.login-username{
+
+    width: 261px;
+    height: 54px;
+    margin-top: 94px;
+    border: 1px solid #D7D7D7;
+    border-radius: 4px;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 25px;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+    box-sizing: border-box;
+
+    background: #FFFFFF;
+    color: #AEAEAE;
+    
+}
+
+.login-btn{
+
+    width: 109px;
+    height: 45px;
+    margin-top: 15px;
+    border-radius: 9px;
+
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 25px;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+
+    color: #696969;
+    background: #E7E7E7;
+
+    cursor: pointer;
+}
+
+header
+{
+    width: 100%;
+}
+
+.header-container{
+    width: 100%;
+    height: 80px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    left: 0;
+    top: 0;
+
+    background: #FFFFFF;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.header-logo{
+    padding-left: 22px;
+    width: 75px;
+    height: 53px;
+}
+
+.show-active-users-btn{
+    padding-right: 22px;
+    color: black;
+    font-size: 31px;
+}
+
+main{
+    width: 100%;
+}
+
+.messages-container{
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.msg-box{
+    width: 100%;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+    justify-content: flex-start;
+    background-color:rgb(221, 221, 221);
+}
+
+.msg-time,.msg-username,.msg-content{
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+}
+
+.msg-time{
+    color: rgba(170, 170, 170, 1);
+    padding-left: 8px;
+}
+
+.msg-username{
+    font-style: bold;
+    font-weight: 600;
+}
+
+.msg-content{
+    font-style: normal;
+    font-weight: 400;
+}
+
+footer
+{
+    width: 100%;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 2;
+}
+
+.send-msg-container{
+    width: 100%;
+    min-height: 80px;
+    height: auto;
+    background: #FFFFFF;
+    box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.input-msg-container{
+    width: 100%;
+    height: auto;
+    position: relative;
+}
+
+.input-msg-text{
+    width: 100%;
+    height: auto;
+    min-height: 80px;
+    
+    font-style: italic;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 25px;
+}
+
+#input-text {
+    border: none;
+    width: 99%;
+    outline: none;
+    padding-left: 17px;
+  }
+  
+#input-text:active {
+    border: none;
+}
+
+.input-msg-text::placeholder{
+    color: black;
+}
+
+.send-msg-btn{
+    position: absolute;
+    z-index: 10;
+    font-size: 26px;
+    right: 20px;
+    bottom: 30px;
+    z-index: 3;
+}
+
+.visibility-settings-window{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99999;
+    display: none;
+}
+
+.visibility-window-content{
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.visibility-options-box{
+    width: 74%;
+    height: 100%;
+    background-color: white;
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1px;
+}
+
+.visibility-options-box h1,.visibility-options-box h2{
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    font-family: 'Roboto';
+    margin-top: 30px;
+    margin-right: 30px;
+    margin-left: 30px;
+}
+
+.choose-visibility-container,.users-to-send-container,.vbtn{
+    width: 100%;
+}
+
+.users-to-send-container{
+    margin-top: 20px;
+}
+
+.choose-visibility-container{
+    margin-top: 10px;
+}
+
+.vbtn{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    margin-left: 20px;
+    height: 36px;
+    position: relative;
+}
+
+.vbtn ion-icon{
+    font-size: 21px;
+}
+
+.vbtn p{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: black;
+}
+
+.checkmark{
+    position: absolute;
+    right: 35px;
+    color:rgba(40, 187, 37, 1);
+}
