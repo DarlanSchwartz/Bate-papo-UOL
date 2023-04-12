@@ -8,6 +8,7 @@ body{
     justify-content: center;
     flex-direction: column;
     background-color: #F3F3F3;
+    overflow: hidden;
 }
 
 .login-screen{
@@ -17,6 +18,15 @@ body{
     flex-direction: column;
     width: 100%;
 }
+
+.login-screen p {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 25px;
+}
+
 .login-logo{
     width: 130px;
     height: 92px;
@@ -68,6 +78,13 @@ body{
     background: #E7E7E7;
 
     cursor: pointer;
+}
+
+.loading-gif{
+    width: 40%;
+    max-width: 150px;
+    max-height: 150px;
+    
 }
 
 header

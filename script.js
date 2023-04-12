@@ -6,6 +6,8 @@ let myUsername = null;
 let visibilityState = 'public';
 let receivers = 'all';
 
+let usersLoggedIn = [];
+
 function CheckLoginEvent(event){
 
     if(event.key === "Enter")
@@ -17,8 +19,15 @@ function CheckLoginEvent(event){
 function TryLogin()
 {
     const loginObj = { name: userInputName.value };
+    
+    document.querySelector(".loading-gif").classList.remove('hidden');
+    document.querySelector(".login-screen p").classList.remove('hidden');
+    document.querySelector(".login-btn").classList.add('hidden');
+    document.querySelector(".login-username").classList.add('hidden');
+
     let answer = axios.post("https://mock-api.driven.com.br/api/vm/uol/participants ",loginObj);
     answer.then (Login);
+
     answer.catch(ErrorFix);
     console.log(answer);
 }
@@ -40,6 +49,13 @@ function ErrorFix(error)
 {
     console.log("Status code: " + error.response.status); // Ex: 404
 	console.log("Mensagem de erro: " + error.response.data); // Ex: Not Found
+
+    document.querySelector(".loading-gif").classList.add('hidden');
+    document.querySelector(".login-screen p").classList.add('hidden');
+    document.querySelector(".login-btn").classList.remove('hidden');
+    document.querySelector(".login-username").classList.remove('hidden');
+
+    alert('Usuário ja se encontra logado e ou seu nome de usuário é inválido!');
 }
 
 function UpdateStatus()
@@ -85,5 +101,32 @@ function SetVisibilityState(state)
     }
 
     console.log(visibilityState);
+}
 
+function SetReceiver(receiver)
+{
+    
+    
+
+    if(receiver === "all")
+    {
+        receivers = receiver;
+    }
+
+    const allBtn = document.querySelector(".all-users-btn");
+
+    const userButton = document.querySelector(".private-btn");
+
+    if(receiver === "all")
+    {
+        allBtn.querySelector('.checkmark').classList.remove('hidden');
+        userButton.querySelector('.checkmark').classList.add('hidden');
+    }
+    else
+    {
+        publicBtn.querySelector('.checkmark').classList.add('hidden');
+        privateBtn.querySelector('.checkmark').classList.remove('hidden');
+    }
+
+    console.log(visibilityState);
 }

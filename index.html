@@ -13,14 +13,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
   </head>
   <body>
-        <div class="login-screen hidden">
+        <div class="login-screen">
             <img  class="login-logo" src="./img/logo 2.png" alt="logo">
             <input onkeydown="CheckLoginEvent(event)" class="login-username" type="text" placeholder="Digite seu Nome">
             <div onclick="TryLogin()" class="login-btn">Entrar</div>
+            <img class="loading-gif hidden" src="./img/spinner.gif" alt="">
+            <p class="hidden">Entrando...</p>
         </div>
         
         <header>
-            <div class="header-container">
+            <div class="header-container hidden">
                 <img  class="header-logo" src="./img/logo 2.png" alt="logo">
                 <ion-icon  onclick="OpenVisibilitySettings()" class="show-active-users-btn" name="people"></ion-icon>
             </div>
@@ -50,12 +52,12 @@
                 <div class="visibility-options-box">
                     <h1>Escolha um contato para enviar mensagem:</h1>
                     <div class="remittees-container">
-                        <div class="all-users-btn vbtn">
+                        <div onclick="SetReceiver('all')" class="all-users-btn vbtn">
                             <ion-icon class="all-users-icon" name="people"></ion-icon>
                             <p>Todos</p>
                             <ion-icon class="checkmark hidden" name="checkmark-sharp"></ion-icon>
                         </div>
-                        <div class="user-btn vbtn">
+                        <div onclick="SetReceiver(this)" class="user-btn vbtn">
                             <ion-icon name="person-circle"></ion-icon>
                             <p>Fulaninho</p>
                             <ion-icon class="checkmark hidden" name="checkmark-sharp"></ion-icon>
