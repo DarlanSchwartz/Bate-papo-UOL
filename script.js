@@ -39,10 +39,9 @@ function TryLogin()
     answer.then (Login);
 
     answer.catch(ErrorFix);
-    console.log(answer);
 }
 
-function Login(data)
+function Login()
 {
     myUsername = { name: userInputName.value };
     userInputName.value = null;
@@ -53,6 +52,7 @@ function Login(data)
     statusInterval = setInterval(UpdateStatus, 5000);
     messages = setInterval(GetServerMessages,3000);
     GetServerMessages();
+    GetUsers();
 }
 
 function ErrorFix(error)
@@ -70,13 +70,7 @@ function ErrorFix(error)
 
 function UpdateStatus()
 {
-    const status = axios.post(statusURL, myUsername);
-    status.then (LogStatus);
-}
-
-function LogStatus(data)
-{
-    console.log(data);
+    axios.post(statusURL, myUsername);
 }
 
 function OpenVisibilitySettings()
@@ -107,8 +101,6 @@ function SetVisibilityState(state)
         publicBtn.querySelector('.checkmark').classList.add('hidden');
         privateBtn.querySelector('.checkmark').classList.remove('hidden');
     }
-
-    console.log(visibilityState);
 }
 
 function SetReceiver(receiver)
@@ -121,8 +113,6 @@ function SetReceiver(receiver)
     {
         receivers = receiver.querySelector('p').innerHTML;
     }
-
-    console.log(receivers);
 
     const allBtn = document.querySelector(".all-users-btn");
 
@@ -145,8 +135,6 @@ function SetReceiver(receiver)
 
         receiver.querySelector('.checkmark').classList.remove('hidden');
     }
-
-    console.log(visibilityState);
 }
 
 function SendMessageEvent(event)
@@ -174,7 +162,7 @@ function SendMessage()
         from: myUsername.name,
         to: sendingTo,
         text: msgText,
-        type: messageType // ou "private_message" para o bônus
+        type: messageType
     }
 
     const SendMessagePromise = axios.post(msgURL,msgObject);
@@ -192,9 +180,9 @@ function GetServerMessages()
 
 function UpdateMessages(allMessages)
 {
-    console.log(allMessages);
     document.querySelector(".messages-container").innerHTML = '';
     
+    console.log(allMessages);
 
     allMessages.data.forEach( msg =>{
 
@@ -213,9 +201,9 @@ function UpdateMessages(allMessages)
         }
         else
         {
-            if(msg.to === myUsername.name)
+            if(msg.to === myUsername.name || msg.from === myUsername.name)
             {
-                let privateMsgFormat = "reservadamente para " + myUsername.name +  msg.text;
+                let privateMsgFormat = "reservadamente para <em>" + msg.to + "</em>: " + msg.text;
                 document.querySelector(".messages-container").innerHTML +=
                 `
                 <div class="msg-box private-msg">
@@ -235,5 +223,34 @@ function UpdateMessages(allMessages)
 
 function GetUsers()
 {
+    const users = axios.get(loginURL);
+    users.then(UpdateUsers);
+}
 
+function UpdateUsers(data)
+{
+    const serverUsers = data.data;
+    document.querySelector(".remittees-container").innerHTML = '';
+
+
+    document.querySelector(".remittees-container").innerHTML +=
+    `
+        <div onclick="SetReceiver('all')" class="all-users-btn vbtn">
+            <ion-icon class="all-users-icon" name="people"></ion-icon>
+            <p>Todos</p>
+            <ion-icon class="checkmark" name="checkmark-sharp"></ion-icon>
+        </div>
+    `;
+
+    serverUsers.forEach ( user =>{
+
+        document.querySelector(".remittees-container").innerHTML +=
+        `
+            <div onclick="SetReceiver(this)" class="user-btn vbtn">
+                <ion-icon name="person-circle"></ion-icon>
+                <p>${user.name}</p>
+                <ion-icon class="checkmark hidden" name="checkmark-sharp"></ion-icon>
+            </div>
+        `;
+    });
 }
