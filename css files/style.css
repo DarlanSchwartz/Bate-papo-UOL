@@ -8,7 +8,6 @@ body{
     justify-content: center;
     flex-direction: column;
     background-color: #F3F3F3;
-    overflow: hidden;
 }
 
 .login-screen{
@@ -90,6 +89,7 @@ body{
 header
 {
     width: 100%;
+    z-index: 100;
 }
 
 .header-container{
@@ -125,10 +125,10 @@ main{
 }
 
 .messages-container{
-    margin-top: 100px;
+    margin-top: 85px;
+    margin-bottom: 85px;
     display: flex;
     flex-direction: column;
-
 }
 
 .msg-box{
@@ -139,7 +139,16 @@ main{
     align-items: center;
     gap: 5px;
     justify-content: flex-start;
+    background-color:white;
+    margin-top: 4px;
+}
+
+.status-msg{
     background-color:rgb(221, 221, 221);
+}
+
+.private-msg{
+    background-color:#FFDEDE;
 }
 
 .msg-time,.msg-username,.msg-content{
@@ -256,7 +265,7 @@ footer
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.6);
-    z-index: 102
+    z-index: 102;
 }
 
 #sidebar{

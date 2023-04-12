@@ -7,7 +7,7 @@
     <title>Bate-Papo UOL</title>
     <link rel="stylesheet" href="./css files/reset.css">
     <link rel="stylesheet" href="./css files/style.css">
-    <!---- <link rel="icon" href="./favicon.ico" type="image/x-icon"> --->
+    <link rel="icon" href="./img/logo 2.png" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
@@ -30,19 +30,19 @@
 
         <main>
             <div class="messages-container hidden">
-                <div class="msg-box">
+                <!--<div class="msg-box">
                     <div class="msg-time">(09:21:45)</div>
                     <div class="msg-username">João</div>
                     <div class="msg-content">entra na sala</div>
-                </div>
+                </div> -->
             </div>
         </main>
 
         <footer>
             <div class="send-msg-container hidden">
                 <div class="input-msg-container">
-                    <input class="input-msg-text" type="text" placeholder="Escreva aqui..." id="input-text">                   
-                    <ion-icon class="send-msg-btn" name="paper-plane-outline"></ion-icon>
+                    <input onkeydown="SendMessageEvent(event)" class="input-msg-text" type="text" placeholder="Escreva aqui..." id="input-text">                   
+                    <ion-icon onclick="SendMessage()" class="send-msg-btn" name="paper-plane-outline"></ion-icon>
                 </div>
             </div>
         </footer>
@@ -60,6 +60,21 @@
                         <div onclick="SetReceiver(this)" class="user-btn vbtn">
                             <ion-icon name="person-circle"></ion-icon>
                             <p>Fulaninho</p>
+                            <ion-icon class="checkmark hidden" name="checkmark-sharp"></ion-icon>
+                        </div>
+                        <div onclick="SetReceiver(this)" class="user-btn vbtn">
+                            <ion-icon name="person-circle"></ion-icon>
+                            <p>Fulanovsky</p>
+                            <ion-icon class="checkmark hidden" name="checkmark-sharp"></ion-icon>
+                        </div>
+                        <div onclick="SetReceiver(this)" class="user-btn vbtn">
+                            <ion-icon name="person-circle"></ion-icon>
+                            <p>Fulanola</p>
+                            <ion-icon class="checkmark hidden" name="checkmark-sharp"></ion-icon>
+                        </div>
+                        <div onclick="SetReceiver(this)" class="user-btn vbtn">
+                            <ion-icon name="person-circle"></ion-icon>
+                            <p>Fulano</p>
                             <ion-icon class="checkmark hidden" name="checkmark-sharp"></ion-icon>
                         </div>
                     </div>
