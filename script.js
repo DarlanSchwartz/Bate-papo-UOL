@@ -18,6 +18,11 @@ function CheckLoginEvent(event){
 
 function TryLogin()
 {
+    if(userInputName.value === '' || userInputName.value === null)
+    {
+        return;
+    }
+    
     const loginObj = { name: userInputName.value };
     
     document.querySelector(".loading-gif").classList.remove('hidden');
@@ -105,9 +110,6 @@ function SetVisibilityState(state)
 
 function SetReceiver(receiver)
 {
-    
-    
-
     if(receiver === "all")
     {
         receivers = receiver;
