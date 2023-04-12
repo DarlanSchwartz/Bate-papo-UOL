@@ -7,27 +7,27 @@
     <title>Bate-Papo UOL</title>
     <link rel="stylesheet" href="./css files/reset.css">
     <link rel="stylesheet" href="./css files/style.css">
-    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    <!---- <link rel="icon" href="./favicon.ico" type="image/x-icon"> --->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
   </head>
   <body>
-        <div class="login-screen">
+        <div class="login-screen hidden">
             <img  class="login-logo" src="./img/logo 2.png" alt="logo">
-            <input class="login-username" type="text" placeholder="Digite seu Nome">
-            <div class="login-btn">Entrar</div>
+            <input onkeydown="CheckLoginEvent(event)" class="login-username" type="text" placeholder="Digite seu Nome">
+            <div onclick="TryLogin()" class="login-btn">Entrar</div>
         </div>
         
         <header>
             <div class="header-container">
                 <img  class="header-logo" src="./img/logo 2.png" alt="logo">
-                <ion-icon class="show-active-users-btn" name="people"></ion-icon>
+                <ion-icon  onclick="OpenVisibilitySettings()" class="show-active-users-btn" name="people"></ion-icon>
             </div>
         </header>
 
         <main>
-            <div class="messages-container">
+            <div class="messages-container hidden">
                 <div class="msg-box">
                     <div class="msg-time">(09:21:45)</div>
                     <div class="msg-username">João</div>
@@ -37,41 +37,41 @@
         </main>
 
         <footer>
-            <div class="send-msg-container">
+            <div class="send-msg-container hidden">
                 <div class="input-msg-container">
                     <input class="input-msg-text" type="text" placeholder="Escreva aqui..." id="input-text">                   
                     <ion-icon class="send-msg-btn" name="paper-plane-outline"></ion-icon>
                 </div>
             </div>
         </footer>
-
-        <div class="visibility-settings-window">
+        <div class="modal-background hidden" onclick="CloseVisibilitySettings()"></div>
+        <div class="visibility-settings-window" id = "sidebar">
             <div class="visibility-window-content">
                 <div class="visibility-options-box">
                     <h1>Escolha um contato para enviar mensagem:</h1>
-                    <div class="users-to-send-container">
+                    <div class="remittees-container">
                         <div class="all-users-btn vbtn">
                             <ion-icon class="all-users-icon" name="people"></ion-icon>
                             <p>Todos</p>
-                            <ion-icon class="checkmark" name="checkmark-sharp"></ion-icon>
+                            <ion-icon class="checkmark hidden" name="checkmark-sharp"></ion-icon>
                         </div>
                         <div class="user-btn vbtn">
                             <ion-icon name="person-circle"></ion-icon>
                             <p>Fulaninho</p>
-                            <ion-icon class="checkmark" name="checkmark-sharp"></ion-icon>
+                            <ion-icon class="checkmark hidden" name="checkmark-sharp"></ion-icon>
                         </div>
                     </div>
                     <h2>Escolha a visibilidade:</h2>
                     <div class="choose-visibility-container">
-                        <div class="public-btn vbtn">
+                        <div onclick="SetVisibilityState('public')" class="public-btn vbtn">
                             <ion-icon name="lock-open"></ion-icon></ion-icon>
                             <p>Público</p>
-                            <ion-icon class="checkmark" name="checkmark-sharp"></ion-icon>
+                            <ion-icon class="checkmark hidden" name="checkmark-sharp"></ion-icon>
                         </div>
-                        <div class="private-btn vbtn">
+                        <div onclick="SetVisibilityState('private')" class="private-btn vbtn">
                             <ion-icon name="lock-closed"></ion-icon></ion-icon>
                             <p>Privado</p>
-                            <ion-icon class="checkmark" name="checkmark-sharp"></ion-icon>
+                            <ion-icon class="checkmark hidden" name="checkmark-sharp"></ion-icon>
                         </div>
                     </div>
                 </div>
@@ -79,9 +79,10 @@
         </div>
 
     
-    
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script src="script.js"></script>
         <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
   </body>
 </html>

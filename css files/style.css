@@ -16,7 +16,6 @@ body{
     justify-content: center;
     flex-direction: column;
     width: 100%;
-    display: none;
 }
 .login-logo{
     width: 130px;
@@ -54,6 +53,7 @@ body{
     margin-top: 15px;
     border-radius: 9px;
 
+    font-family: 'Roboto';
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
@@ -205,34 +205,52 @@ footer
 }
 
 .visibility-settings-window{
-    width: 100%;
+    width: 259px;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
     position: fixed;
     top: 0;
-    left: 0;
-    z-index: 99999;
-    display: none;
+    right: 0;
+    z-index: 103;
 }
 
 .visibility-window-content{
+    width: 259px;
     height: 100%;
-    width: 100%;
     position: relative;
+    z-index: 103;
 }
 
 .visibility-options-box{
-    width: 74%;
+    width: 259px;
     height: 100%;
     background-color: white;
     position: absolute;
-    right: 0;
     top: 0;
+    right: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
     gap: 1px;
+    z-index: 103;
+}
+
+.modal-background{
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 102
+}
+
+#sidebar{
+    position: fixed;
+    top: 0;
+    right: -100%;
+    transition: all 0.5s ease-in-out;
+}
+
+#sidebar.open {
+    right: 0;
 }
 
 .visibility-options-box h1,.visibility-options-box h2{
@@ -249,11 +267,11 @@ footer
     margin-left: 30px;
 }
 
-.choose-visibility-container,.users-to-send-container,.vbtn{
+.choose-visibility-container,.remittees-container,.vbtn{
     width: 100%;
 }
 
-.users-to-send-container{
+.remittees-container{
     margin-top: 20px;
 }
 
@@ -270,10 +288,22 @@ footer
     margin-left: 20px;
     height: 36px;
     position: relative;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+
+    width: 220px;
+    margin-right: 20px;
+    border-radius: 5px;
+}
+
+.vbtn:hover
+{
+    background-color: lightgray;
 }
 
 .vbtn ion-icon{
     font-size: 21px;
+    padding-left: 10px;
 }
 
 .vbtn p{
@@ -287,6 +317,10 @@ footer
 
 .checkmark{
     position: absolute;
-    right: 35px;
+    right: 10px;
     color:rgba(40, 187, 37, 1);
+}
+
+.hidden{
+    display: none;
 }
