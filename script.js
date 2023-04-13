@@ -50,7 +50,7 @@ function Login()
     
     
     statusInterval = setInterval(GetUsers, 10000);
-    messages = setInterval(GetServerMessages,3000); //alterado
+    messagesInterval = setInterval(GetServerMessages,3000); //alterado
     usersInterval =setInterval(UpdateStatus,3000);
 
     myUsername = { name: userInputName.value };
