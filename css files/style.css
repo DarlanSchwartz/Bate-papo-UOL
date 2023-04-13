@@ -264,6 +264,7 @@ footer
     justify-content: flex-start;
     gap: 1px;
     z-index: 103;
+    overflow-y: scroll;
 }
 
 .modal-background{

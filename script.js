@@ -4,6 +4,7 @@ const userInputMessage = document.querySelector(".input-msg-text");
 
 let statusInterval = null;
 let messagesInterval = null;
+let usersInterval = null;
 let myUsername = null;
 
 let visibilityState = 'public';
@@ -37,7 +38,6 @@ function TryLogin()
 
     let answer = axios.post(loginURL,loginObj);
     answer.then (Login);
-
     answer.catch(ErrorFix);
 }
 
@@ -49,8 +49,11 @@ function Login()
     document.querySelector(".header-container").classList.remove("hidden");
     document.querySelector(".messages-container").classList.remove("hidden");
     document.querySelector(".send-msg-container").classList.remove("hidden");
-    statusInterval = setInterval(UpdateStatus, 5000);
+
+    statusInterval = setInterval(GetUsers, 10000);
     messages = setInterval(GetServerMessages,3000);
+    usersInterval =setInterval(UpdateStatus,3000);
+
     GetServerMessages();
     GetUsers();
 }
@@ -170,6 +173,9 @@ function SendMessage()
     document.querySelector(".input-msg-text").value = '';
 
     SendMessagePromise.then(GetServerMessages);
+
+    console.log(receivers);
+    console.log(msgObject);
 }
 
 function GetServerMessages()
@@ -181,8 +187,6 @@ function GetServerMessages()
 function UpdateMessages(allMessages)
 {
     document.querySelector(".messages-container").innerHTML = '';
-    
-    console.log(allMessages);
 
     allMessages.data.forEach( msg =>{
 
@@ -192,7 +196,7 @@ function UpdateMessages(allMessages)
         {
             document.querySelector(".messages-container").innerHTML +=
             `
-            <div class="${isStatus}">
+            <div data-test="message" class="${isStatus}">
                 <div class="msg-time">${msg.time}</div>
                 <div class="msg-username">${msg.from}</div>
                 <div class="msg-content">${msg.text}</div>
@@ -206,7 +210,7 @@ function UpdateMessages(allMessages)
                 let privateMsgFormat = "reservadamente para <em>" + msg.to + "</em>: " + msg.text;
                 document.querySelector(".messages-container").innerHTML +=
                 `
-                <div class="msg-box private-msg">
+                <div data-test="message" class="msg-box private-msg" >
                     <div class="msg-time">${msg.time}</div>
                     <div class="msg-username">${msg.from}</div>
                     <div class="msg-content">${privateMsgFormat}</div>
@@ -231,26 +235,69 @@ function UpdateUsers(data)
 {
     const serverUsers = data.data;
     document.querySelector(".remittees-container").innerHTML = '';
+    const hadSelectedUser = receivers!= 'all';
+    let keepSelectedUser =false;
 
-
-    document.querySelector(".remittees-container").innerHTML +=
-    `
-        <div onclick="SetReceiver('all')" class="all-users-btn vbtn">
-            <ion-icon class="all-users-icon" name="people"></ion-icon>
-            <p>Todos</p>
-            <ion-icon class="checkmark" name="checkmark-sharp"></ion-icon>
-        </div>
-    `;
+    if(!hadSelectedUser)
+    {
+        document.querySelector(".remittees-container").innerHTML +=
+        `
+            <div data-test="all" onclick="SetReceiver('all')" class="all-users-btn vbtn">
+                <ion-icon class="all-users-icon" name="people"></ion-icon>
+                <p>Todos</p>
+                <ion-icon data-test="check" class="checkmark" name="checkmark-sharp"></ion-icon>
+            </div>
+        `;
+    }
+    else
+    {
+        document.querySelector(".remittees-container").innerHTML +=
+        `
+            <div data-test="all" onclick="SetReceiver('all')" class="all-users-btn vbtn">
+                <ion-icon class="all-users-icon" name="people"></ion-icon>
+                <p>Todos</p>
+                <ion-icon data-test="check" class="checkmark hidden" name="checkmark-sharp"></ion-icon>
+            </div>
+        `;
+    }
 
     serverUsers.forEach ( user =>{
 
-        document.querySelector(".remittees-container").innerHTML +=
-        `
-            <div onclick="SetReceiver(this)" class="user-btn vbtn">
-                <ion-icon name="person-circle"></ion-icon>
-                <p>${user.name}</p>
-                <ion-icon class="checkmark hidden" name="checkmark-sharp"></ion-icon>
-            </div>
-        `;
+        if(hadSelectedUser == true)
+        {
+            if(receivers !='all')
+            {
+                if(receivers == user.name)
+                {
+                    keepSelectedUser = true;
+                }
+            }
+        }
+        
+        if(user.name != myUsername.name)
+        {
+            if(keepSelectedUser == false)
+            {
+                document.querySelector(".remittees-container").innerHTML +=
+                `
+                    <div data-test="participant" onclick="SetReceiver(this)" class="user-btn vbtn">
+                        <ion-icon name="person-circle"></ion-icon>
+                        <p>${user.name}</p>
+                        <ion-icon data-test="check" class="checkmark hidden" name="checkmark-sharp"></ion-icon>
+                    </div>
+                `;
+            }
+            else if(user.name == receivers)
+            {
+                document.querySelector(".remittees-container").innerHTML +=
+                `
+                    <div data-test="participant" onclick="SetReceiver(this)" class="user-btn vbtn">
+                        <ion-icon name="person-circle"></ion-icon>
+                        <p>${user.name}</p>
+                        <ion-icon data-test="check" class="checkmark" name="checkmark-sharp"></ion-icon>
+                    </div>
+                `;
+            }
+        }
     });
 }

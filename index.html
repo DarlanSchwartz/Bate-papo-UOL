@@ -15,8 +15,8 @@
   <body>
         <div class="login-screen">
             <img  class="login-logo" src="./img/logo 2.png" alt="logo">
-            <input onkeydown="CheckLoginEvent(event)" class="login-username" type="text" placeholder="Digite seu Nome">
-            <div onclick="TryLogin()" class="login-btn">Entrar</div>
+            <input data-test="input-name" onkeydown="CheckLoginEvent(event)" class="login-username" type="text" placeholder="Digite seu Nome">
+            <div data-test="send-name" onclick="TryLogin()" class="login-btn">Entrar</div>
             <img class="loading-gif hidden" src="./img/spinner.gif" alt="">
             <p class="hidden">Entrando...</p>
         </div>
@@ -24,7 +24,7 @@
         <header>
             <div class="header-container hidden">
                 <img  class="header-logo" src="./img/logo 2.png" alt="logo">
-                <ion-icon  onclick="OpenVisibilitySettings()" class="show-active-users-btn" name="people"></ion-icon>
+                <ion-icon data-test="open-participants" onclick="OpenVisibilitySettings()" class="show-active-users-btn" name="people"></ion-icon>
             </div>
         </header>
 
@@ -41,12 +41,12 @@
         <footer>
             <div class="send-msg-container hidden">
                 <div class="input-msg-container">
-                    <input onkeydown="SendMessageEvent(event)" class="input-msg-text" type="text" placeholder="Escreva aqui..." id="input-text">                   
-                    <ion-icon onclick="SendMessage()" class="send-msg-btn" name="paper-plane-outline"></ion-icon>
+                    <input data-test="input-message" onkeydown="SendMessageEvent(event)" class="input-msg-text" type="text" placeholder="Escreva aqui..." id="input-text">                   
+                    <ion-icon data-test="send-message" onclick="SendMessage()" class="send-msg-btn" name="paper-plane-outline"></ion-icon>
                 </div>
             </div>
         </footer>
-        <div class="modal-background hidden" onclick="CloseVisibilitySettings()"></div>
+        <div data-test="overlay" class="modal-background hidden" onclick="CloseVisibilitySettings()"></div>
         <div class="visibility-settings-window" id = "sidebar">
             <div class="visibility-window-content">
                 <div class="visibility-options-box">
@@ -55,25 +55,25 @@
                         <div onclick="SetReceiver('all')" class="all-users-btn vbtn">
                             <ion-icon class="all-users-icon" name="people"></ion-icon>
                             <p>Todos</p>
-                            <ion-icon class="checkmark" name="checkmark-sharp"></ion-icon>
+                            <ion-icon data-test="check" class="checkmark" name="checkmark-sharp"></ion-icon>
                         </div>
                         <div onclick="SetReceiver(this)" class="user-btn vbtn">
-                            <ion-icon name="person-circle"></ion-icon>
+                            <ion-icon data-test="participant" name="person-circle"></ion-icon>
                             <p>Fulaninho</p>
-                            <ion-icon class="checkmark hidden" name="checkmark-sharp"></ion-icon>
+                            <ion-icon data-test="check" class="checkmark hidden" name="checkmark-sharp"></ion-icon>
                         </div>
                     </div>
                     <h2>Escolha a visibilidade:</h2>
                     <div class="choose-visibility-container">
-                        <div onclick="SetVisibilityState('public')" class="public-btn vbtn">
+                        <div  data-test="public" onclick="SetVisibilityState('public')" class="public-btn vbtn">
                             <ion-icon name="lock-open"></ion-icon></ion-icon>
                             <p>Público</p>
-                            <ion-icon class="checkmark" name="checkmark-sharp"></ion-icon>
+                            <ion-icon data-test="check" class="checkmark" name="checkmark-sharp"></ion-icon>
                         </div>
-                        <div onclick="SetVisibilityState('private')" class="private-btn vbtn">
+                        <div data-test="private" onclick="SetVisibilityState('private')" class="private-btn vbtn">
                             <ion-icon name="lock-closed"></ion-icon></ion-icon>
                             <p>Privado</p>
-                            <ion-icon class="checkmark hidden" name="checkmark-sharp"></ion-icon>
+                            <ion-icon data-test="check" class="checkmark hidden" name="checkmark-sharp"></ion-icon>
                         </div>
                     </div>
                 </div>
