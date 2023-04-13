@@ -246,7 +246,10 @@ function SendMessage()
     }
 
     const sendingTo = receivers == 'all' ? 'Todos' : receivers;
-    const messageType = visibilityState == 'public' ? "message" : receivers == 'all' ? "private_message" : "message";
+    const correctMessageType = receivers == 'all' ? "message" : "private_message";
+    const messageType = visibilityState == 'public' ? "message" : correctMessageType;
+
+    console.log(messageType);
 
     const msgObject = 
     {
@@ -290,18 +293,20 @@ function UpdateMessages(allMessages)
         }
         else
         {
-            if(msg.to === myUsername.name || msg.from === myUsername.name)
+            if(msg.to === myUsername.name || msg.from === myUsername.name || msg.type === "message")
             {
-                let privateMsgFormat = "reservadamente para <em>" + msg.to + "</em>: " + msg.text;
+                let privateMsgFormat = msg.type == "message" ? "para <em>" + msg.to + "</em>: " + msg.text : "reservadamente para <em>" + msg.to + "</em>: " + msg.text;
+                let needColorRed = msg.type === "message" ? "" : "private-msg";
                 document.querySelector(".messages-container").innerHTML +=
                 `
-                <div data-test="message" class="msg-box private-msg" >
+                <div data-test="message" class="msg-box ${needColorRed}">
                     <div class="msg-time">${msg.time}</div>
                     <div class="msg-username">${msg.from}</div>
                     <div class="msg-content">${privateMsgFormat}</div>
                 </div>
                 `;
             }
+
         }
     });
 
