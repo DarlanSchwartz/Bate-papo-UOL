@@ -47,9 +47,11 @@ function Login()
 {
     GetServerMessages();
     GetUsers();
+    SetReceiver('all');
+    SetVisibilityState('public');
     
     statusInterval = setInterval(GetUsers, 10000);
-    messages = setInterval(GetServerMessages,3000);
+    messagesInterval = setInterval(GetServerMessages,3000);
     usersInterval =setInterval(UpdateStatus,3000);
 
     myUsername = { name: userInputName.value };
@@ -59,7 +61,10 @@ function Login()
     document.querySelector(".messages-container").classList.remove("hidden");
     document.querySelector(".send-msg-container").classList.remove("hidden");
 
-    document.querySelector(".messages-container").lastElementChild.scrollIntoView({ behavior: "smooth" });
+    if(document.querySelector(".messages-container").lastElementChild != null)
+    {
+        document.querySelector(".messages-container").lastElementChild.scrollIntoView({ behavior: "smooth" });
+    }
 }
 
 function LoginError(error)
@@ -77,7 +82,42 @@ function LoginError(error)
 
 function UpdateStatus()
 {
-    axios.post(statusURL, myUsername);
+    const userStatus = axios.post(statusURL, myUsername);
+
+    userStatus.catch(ReturnToLogin);
+}
+
+function ReturnToLogin()
+{
+    document.querySelector(".login-btn").classList.remove('hidden');
+    document.querySelector(".login-username").classList.remove('hidden');
+    document.querySelector(".login-screen").classList.remove("hidden");
+    document.querySelector(".header-container").classList.add("hidden");
+    document.querySelector(".messages-container").classList.add("hidden");
+    document.querySelector(".send-msg-container").classList.add("hidden");
+    document.querySelector(".messages-container").innerHTML = '';
+    document.querySelector(".remittees-container").innerHTML =
+        `
+            <div data-test="all" onclick="SetReceiver('all')" class="all-users-btn vbtn">
+                <ion-icon class="all-users-icon" name="people"></ion-icon>
+                <p>Todos</p>
+                <ion-icon data-test="check" class="checkmark" name="checkmark-sharp"></ion-icon>
+            </div>
+        `;
+    document.querySelector(".input-msg-text").value = "";
+    document.querySelector(".visibility-settings-window").classList.remove('open');    
+    document.querySelector(".modal-background").classList.add('hidden');
+
+    clearInterval(statusInterval);
+    clearInterval(messagesInterval);
+    clearInterval(usersInterval);
+
+    SetReceiver('all');
+    SetVisibilityState('public');
+
+    myUsername = null;
+
+
 }
 
 function OpenVisibilitySettings()
@@ -98,6 +138,31 @@ function SetVisibilityState(state)
     const publicBtn = document.querySelector(".public-btn");
     const privateBtn = document.querySelector(".private-btn");
 
+    if(receivers == 'all')
+    {
+        document.querySelector(".sending-to-info").innerHTML = 
+        `
+            Enviando mensagem para (Todos)
+        `;
+    }
+    else
+    {
+        if(visibilityState == 'public')
+        {
+            document.querySelector(".sending-to-info").innerHTML = 
+            `
+                Enviando mensagem para ${receivers} (Publico)
+            `;
+        }
+        else if( visibilityState == 'private')
+        {
+            document.querySelector(".sending-to-info").innerHTML = 
+            `
+                Enviando mensagem para ${receivers} (Reservadamente)
+            `;
+        }
+    }
+
     if(state === "public")
     {
         publicBtn.querySelector('.checkmark').classList.remove('hidden');
@@ -115,10 +180,29 @@ function SetReceiver(receiver)
     if(receiver === "all")
     {
         receivers = receiver;
+        document.querySelector(".sending-to-info").innerHTML = 
+        `
+            Enviando mensagem para (Todos)
+        `;
     }
     else
     {
-        receivers = receiver.querySelector('p').innerHTML;
+        const receiverName = receiver.querySelector('p').innerHTML;
+        receivers = receiverName;
+        if(visibilityState == 'public')
+        {
+            document.querySelector(".sending-to-info").innerHTML = 
+            `
+                Enviando mensagem para ${receiverName} (Publico)
+            `;
+        }
+        else if( visibilityState == 'private')
+        {
+            document.querySelector(".sending-to-info").innerHTML = 
+            `
+                Enviando mensagem para ${receiverName} (Reservadamente)
+            `;
+        }
     }
 
     const allBtn = document.querySelector(".all-users-btn");
@@ -162,7 +246,7 @@ function SendMessage()
     }
 
     const sendingTo = receivers == 'all' ? 'Todos' : receivers;
-    const messageType = visibilityState == 'public' ? "message" : "private_message";
+    const messageType = visibilityState == 'public' ? "message" : receivers == 'all' ? "private_message" : "message";
 
     const msgObject = 
     {
@@ -177,9 +261,6 @@ function SendMessage()
     document.querySelector(".input-msg-text").value = '';
 
     SendMessagePromise.then(GetServerMessages);
-
-    console.log(receivers);
-    console.log(msgObject);
 }
 
 function GetServerMessages()
