@@ -76,16 +76,9 @@ function LoginError(error)
     alert('Digite outro nome');
 }
 
-function UpdateStatus()
-{
-    const userStatus = axios.post(statusURL, myUsername);
-    userStatus.then(console.log("loggedin"))
-    userStatus.catch(ReturnToLogin);
-}
-
 function ReturnToLogin()
 {
-    document.querySelector(".login-btn").classList.remove('hidden');
+    /*document.querySelector(".login-btn").classList.remove('hidden');
     document.querySelector(".login-username").classList.remove('hidden');
     document.querySelector(".login-screen").classList.remove("hidden");
     document.querySelector(".header-container").classList.add("hidden");
@@ -111,9 +104,14 @@ function ReturnToLogin()
     SetReceiver('all');
     SetVisibilityState('public');
 
-    myUsername = null;
+    myUsername = null;*/
+    window.location.reload();
 }
 
+function UpdateStatus()
+{
+    const userStatus = axios.post(statusURL, myUsername);
+}
 function OpenVisibilitySettings()
 {
     document.querySelector(".visibility-settings-window").classList.toggle('open');
@@ -258,12 +256,14 @@ function SendMessage()
     document.querySelector(".input-msg-text").value = '';
 
     SendMessagePromise.then(GetServerMessages);
+    SendMessagePromise.catch(ReturnToLogin);
 }
 
 function GetServerMessages()
 {
     const messages = axios.get("https://mock-api.driven.com.br/api/vm/uol/messages");
     messages.then(UpdateMessages);
+    messages.catch(ReturnToLogin);
 }
 
 function UpdateMessages(allMessages)
@@ -311,6 +311,7 @@ function GetUsers()
 {
     const users = axios.get(loginURL);
     users.then(UpdateUsers);
+    users.catch(ReturnToLogin);
 }
 
 function UpdateUsers(data)
@@ -320,7 +321,7 @@ function UpdateUsers(data)
     const hadSelectedUser = receivers!= 'all';
     let keepSelectedUser =false;
 
-    if(!hadSelectedUser)
+    if(hadSelectedUser == false)
     {
         document.querySelector(".remittees-container").innerHTML +=
         `
@@ -382,4 +383,9 @@ function UpdateUsers(data)
             }
         }
     });
+
+    if(hadSelectedUser && keepSelectedUser == false)
+    {
+        SetReceiver('all');
+    }
 }
