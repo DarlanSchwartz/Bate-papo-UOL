@@ -78,39 +78,13 @@ function LoginError(error)
 
 function ReturnToLogin()
 {
-    /*document.querySelector(".login-btn").classList.remove('hidden');
-    document.querySelector(".login-username").classList.remove('hidden');
-    document.querySelector(".login-screen").classList.remove("hidden");
-    document.querySelector(".header-container").classList.add("hidden");
-    document.querySelector(".messages-container").classList.add("hidden");
-    document.querySelector(".send-msg-container").classList.add("hidden");
-    document.querySelector(".messages-container").innerHTML = '';
-    document.querySelector(".remittees-container").innerHTML =
-        `
-            <div data-test="all" onclick="SetReceiver('all')" class="all-users-btn vbtn">
-                <ion-icon class="all-users-icon" name="people"></ion-icon>
-                <p>Todos</p>
-                <ion-icon data-test="check" class="checkmark" name="checkmark-sharp"></ion-icon>
-            </div>
-        `;
-    document.querySelector(".input-msg-text").value = "";
-    document.querySelector(".visibility-settings-window").classList.remove('open');    
-    document.querySelector(".modal-background").classList.add('hidden');
-
-    clearInterval(statusInterval);
-    clearInterval(messagesInterval);
-    clearInterval(usersInterval);
-
-    SetReceiver('all');
-    SetVisibilityState('public');
-
-    myUsername = null;*/
     window.location.reload();
 }
 
 function UpdateStatus()
 {
     const userStatus = axios.post(statusURL, myUsername);
+    userStatus.catch(ReturnToLogin);
 }
 function OpenVisibilitySettings()
 {
