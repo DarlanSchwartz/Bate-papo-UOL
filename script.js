@@ -50,7 +50,7 @@ function Login()
     
     
     statusInterval = setInterval(GetUsers, 10000);
-    messagesInterval = setInterval(GetServerMessages,3000);
+    messages = setInterval(GetServerMessages,3000); //alterado
     usersInterval =setInterval(UpdateStatus,3000);
 
     myUsername = { name: userInputName.value };
@@ -60,10 +60,10 @@ function Login()
     document.querySelector(".messages-container").classList.remove("hidden");
     document.querySelector(".send-msg-container").classList.remove("hidden");
 
-    if(document.querySelector(".messages-container").lastElementChild != null)
-    {
+   // if(document.querySelector(".messages-container").lastElementChild != null) /// Alterado
+   // {
         document.querySelector(".messages-container").lastElementChild.scrollIntoView({ behavior: "smooth" });
-    }
+   // }
 
     SetReceiver('all');
     SetVisibilityState('public');
@@ -118,8 +118,6 @@ function ReturnToLogin()
     SetVisibilityState('public');
 
     myUsername = null;
-
-
 }
 
 function OpenVisibilitySettings()
