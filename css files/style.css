@@ -134,6 +134,7 @@ main{
     margin-bottom: 85px;
     display: flex;
     flex-direction: column;
+    overflow-x: hidden;
 }
 
 .msg-box{

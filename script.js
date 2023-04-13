@@ -14,6 +14,8 @@ const msgURL = "https://mock-api.driven.com.br/api/vm/uol/messages";
 const loginURL = "https://mock-api.driven.com.br/api/vm/uol/participants";
 const statusURL = "https://mock-api.driven.com.br/api/vm/uol/status";
 
+
+
 function CheckLoginEvent(event){
 
     if(event.key === "Enter")
@@ -37,12 +39,19 @@ function TryLogin()
     document.querySelector(".login-username").classList.add('hidden');
 
     let answer = axios.post(loginURL,loginObj);
-    answer.then (Login);
-    answer.catch(ErrorFix);
+    answer.then(Login);
+    answer.catch(LoginError);
 }
 
 function Login()
 {
+    GetServerMessages();
+    GetUsers();
+    
+    statusInterval = setInterval(GetUsers, 10000);
+    messages = setInterval(GetServerMessages,3000);
+    usersInterval =setInterval(UpdateStatus,3000);
+
     myUsername = { name: userInputName.value };
     userInputName.value = null;
     document.querySelector(".login-screen").classList.add("hidden");
@@ -50,15 +59,10 @@ function Login()
     document.querySelector(".messages-container").classList.remove("hidden");
     document.querySelector(".send-msg-container").classList.remove("hidden");
 
-    statusInterval = setInterval(GetUsers, 10000);
-    messages = setInterval(GetServerMessages,3000);
-    usersInterval =setInterval(UpdateStatus,3000);
-
-    GetServerMessages();
-    GetUsers();
+    document.querySelector(".messages-container").lastElementChild.scrollIntoView({ behavior: "smooth" });
 }
 
-function ErrorFix(error)
+function LoginError(error)
 {
     console.log("Status code: " + error.response.status); // Ex: 404
 	console.log("Mensagem de erro: " + error.response.data); // Ex: Not Found
@@ -68,7 +72,7 @@ function ErrorFix(error)
     document.querySelector(".login-btn").classList.remove('hidden');
     document.querySelector(".login-username").classList.remove('hidden');
 
-    alert('Usuário ja se encontra logado e ou seu nome de usuário é inválido!');
+    alert('Digite outro nome');
 }
 
 function UpdateStatus()
@@ -220,9 +224,7 @@ function UpdateMessages(allMessages)
         }
     });
 
-    const div = document.querySelector(".messages-container");
-    const lastChild = div.lastElementChild;
-    lastChild.scrollIntoView();
+    document.querySelector(".messages-container").lastElementChild.scrollIntoView({ behavior: "smooth" });
 }
 
 function GetUsers()
