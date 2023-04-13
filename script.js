@@ -47,8 +47,7 @@ function Login()
 {
     GetServerMessages();
     GetUsers();
-    SetReceiver('all');
-    SetVisibilityState('public');
+    
     
     statusInterval = setInterval(GetUsers, 10000);
     messagesInterval = setInterval(GetServerMessages,3000);
@@ -65,6 +64,9 @@ function Login()
     {
         document.querySelector(".messages-container").lastElementChild.scrollIntoView({ behavior: "smooth" });
     }
+
+    SetReceiver('all');
+    SetVisibilityState('public');
 }
 
 function LoginError(error)
@@ -83,8 +85,8 @@ function LoginError(error)
 function UpdateStatus()
 {
     const userStatus = axios.post(statusURL, myUsername);
-
-    userStatus.catch(ReturnToLogin);
+    //userStatus.then(console.log("loggedin"))
+    //userStatus.catch(ReturnToLogin);
 }
 
 function ReturnToLogin()
