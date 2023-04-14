@@ -111,7 +111,7 @@ function LoginError(error)
     alert('Digite outro nome');
 }
 
-function ReturnToLogin()
+function ReturnToLogin(erro)
 {
     // Reload page
     window.location.reload();
