@@ -142,12 +142,16 @@ main{
     height: auto;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
     gap: 5px;
     justify-content: flex-start;
     background-color:white;
     margin-top: 4px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
+
 
 .status-msg{
     background-color:rgb(221, 221, 221);
@@ -166,12 +170,15 @@ main{
 .msg-time{
     color: rgba(170, 170, 170, 1);
     padding-left: 8px;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .msg-username{
-    font-style: bold;
-    font-weight: 600;
-    width: auto;
+    line-height: 20px;
+    font-family: 'Roboto';
 }
 
 .msg-content{

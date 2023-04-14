@@ -68,7 +68,7 @@ function Login()
     
     // Start updating messages users and send my logged in status
     statusInterval = setInterval(GetUsers, 10000);
-    messagesInterval = setInterval(GetServerMessages,3000);
+    messagesInterval = setInterval(GetServerMessages,60000);
     usersInterval =setInterval(UpdateStatus,3000);
 
     // Assign my world var to this object below
@@ -321,23 +321,64 @@ function UpdateMessages(allMessages)
             // If the message is status just render the message
             if(msg.type == "status")
             {
+               /* document.querySelector(".messages-container").innerHTML +=
+                `
+                <div data-test="message" class="${isStatus}">
+                    <p>
+                        <div class="msg-time">${msg.time}</div>
+                        <div class="msg-username">${msg.from}</div>
+                        <div class="msg-content">${msg.text}</div>
+                    </p>
+                </div>
+                `;*/
+
+               /* document.querySelector(".messages-container").innerHTML +=
+                `
+                <div data-test="message" class="${isStatus}">
+                    <p>
+                        <div class="msg-time">${msg.time}</div>
+                        <p class="msg-username"><em>${msg.from} </em>${msg.text}</p>
+                    </p>
+                </div>
+                `;*/
+
                 document.querySelector(".messages-container").innerHTML +=
                 `
                 <div data-test="message" class="${isStatus}">
-                    <div class="msg-time">${msg.time}</div>
-                    <div class="msg-username">${msg.from}</div>
-                    <div class="msg-content">${msg.text}</div>
+                    <p>
+                        <span style = "color: rgba(170, 170, 170, 1);font-weight: 400;font-size: 14px;">(${msg.time})</span><span class="msg-username" style = "padding-left: 8px;font-weight: 400;font-size: 14px;"><em>${msg.from} </em></span><span style = "font-size: 14px;">${msg.text}</span>
+                    </p>
                 </div>
                 `;
+
             } // If the message is not status add the receiver on it , in this case para Todos <em>
             else
             {
-                document.querySelector(".messages-container").innerHTML +=
+                /*document.querySelector(".messages-container").innerHTML +=
                 `
                 <div data-test="message" class="${isStatus}">
                     <div class="msg-time">${msg.time}</div>
                     <div class="msg-username">${msg.from}</div>
                     <div class="msg-content">para <em>Todos: </em>${msg.text}</div>
+                </div>
+                `;*/
+
+                /*document.querySelector(".messages-container").innerHTML +=
+                `
+                <div data-test="message" class="${isStatus}">
+                    <p>
+                        <div class="msg-time">${msg.time}</div>
+                        <p class="msg-username"><em>${msg.from} </em> para <em>Todos: </em>${msg.text}</p>
+                    </p>
+                </div>
+                `;*/
+
+                document.querySelector(".messages-container").innerHTML +=
+                `
+                <div data-test="message" class="${isStatus}">
+                    <p>
+                        <span style = "color: rgba(170, 170, 170, 1);font-weight: 400;font-size: 14px;">(${msg.time})</span><span class="msg-username" style = "padding-left: 8px;font-size: 14px;"><em>${msg.from} </em> para <em>Todos:</em> </span><span style = "font-size: 14px;">${msg.text}</span>
+                    </p>
                 </div>
                 `;
             }
@@ -352,12 +393,38 @@ function UpdateMessages(allMessages)
 
                 // Check if the message is for only me and color it red and render it
                 let needColorRed = msg.type === "message" ? "" : "private-msg";
-                document.querySelector(".messages-container").innerHTML +=
+
+                /*document.querySelector(".messages-container").innerHTML +=
                 `
                 <div data-test="message" class="msg-box ${needColorRed}">
                     <div class="msg-time">${msg.time}</div>
                     <div class="msg-username">${msg.from}</div>
                     <div class="msg-content">${privateMsgFormat}</div>
+                </div>
+                `;*/
+
+                /*document.querySelector(".messages-container").innerHTML +=
+                `
+                <div data-test="message" class="msg-box ${needColorRed}">
+                    <p>
+                        <div class="msg-time">${msg.time}</div>
+                        <div class="msg-username"><em>${msg.from} </em>${privateMsgFormat}</div>
+                    </p>
+                </div>
+                `;*/
+
+                if(isStatus)
+                {
+                    console.log(msg.text);
+                }
+
+
+                document.querySelector(".messages-container").innerHTML +=
+                `
+                <div data-test="message" class="msg-box ${needColorRed}">
+                    <p>
+                        <span style = "color: rgba(170, 170, 170, 1);font-weight: 400;font-size: 14px;">(${msg.time})</span><span class="msg-username" style = "padding-left: 8px; font-size: 14px;"><em>${msg.from} </em></span><span style = "font-size: 14px;">${privateMsgFormat}</span>
+                    </p>
                 </div>
                 `;
             }
