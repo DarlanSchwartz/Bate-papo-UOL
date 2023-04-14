@@ -67,9 +67,9 @@ function Login()
     GetUsers();
     
     // Start updating messages users and send my logged in status
-    statusInterval = setInterval(GetUsers, 10000);
-    messagesInterval = setInterval(GetServerMessages,60000);
-    usersInterval =setInterval(UpdateStatus,3000);
+    statusInterval = setInterval(GetUsers, 5000);
+    messagesInterval = setInterval(GetServerMessages,3000);
+    usersInterval =setInterval(UpdateStatus,10000);
 
     // Assign my world var to this object below
     myUsername = { name: userInputName.value };
